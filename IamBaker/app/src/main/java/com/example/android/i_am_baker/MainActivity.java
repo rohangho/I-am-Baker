@@ -4,6 +4,7 @@ package com.example.android.i_am_baker;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -23,18 +24,30 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mrecycle=(RecyclerView)findViewById(R.id.types);
-        LinearLayoutManager layoutmanager=new LinearLayoutManager(this);
-        mrecycle.setLayoutManager(layoutmanager);
-        madapter=new BasicAdapter();
+        //To check weathet it is tab mod or phone mod
+        if(getResources().getBoolean(R.bool.is_Tab)){
+            GridLayoutManager layoutmanager=new GridLayoutManager(this,4);
+            mrecycle.setLayoutManager(layoutmanager);
+            madapter=new BasicAdapter();
 
-        mrecycle.setLayoutManager(layoutmanager);
-        mrecycle.setAdapter(madapter);
+            mrecycle.setLayoutManager(layoutmanager);
+            mrecycle.setAdapter(madapter);
 
+        }
+        else {
+            LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
+            mrecycle.setLayoutManager(layoutmanager);
+            madapter = new BasicAdapter();
+
+            mrecycle.setLayoutManager(layoutmanager);
+            mrecycle.setAdapter(madapter);
+        }
         FetchTask fb = new FetchTask();
         fb.execute();
     }
