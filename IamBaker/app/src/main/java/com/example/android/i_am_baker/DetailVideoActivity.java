@@ -29,6 +29,13 @@ public class DetailVideoActivity extends AppCompatActivity {
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.detail_of_step,ifragment).commit();
 
+        VideoFragment ifragment1=new VideoFragment();
+        ifragment1.setArguments(bundle);
+        FragmentManager fragmentManager1=getSupportFragmentManager();
+        fragmentManager1.beginTransaction().add(R.id.Corresponding_video,ifragment1).commit();
+
+
+
 
     }
 }

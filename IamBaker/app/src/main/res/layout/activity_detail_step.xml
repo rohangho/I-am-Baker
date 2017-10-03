@@ -9,6 +9,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Corresponding_video"
+        android:layout_marginBottom="8dp">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/detail_of_step"
         android:layout_marginBottom="8dp"></FrameLayout>

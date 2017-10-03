@@ -2,6 +2,7 @@ package com.example.android.i_am_baker.network;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,6 +130,14 @@ public class Json_Type {
             return step_detail[pos];
         }
 
+        public static String return_video(int pos)
+
+        {
+            String i="i am rohan";
+            Log.i("i",step_video_url[pos]);
+            return step_video_url[pos];
+
+        }
     }
 
 
