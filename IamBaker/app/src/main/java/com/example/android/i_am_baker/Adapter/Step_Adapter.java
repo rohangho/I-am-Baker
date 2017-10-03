@@ -17,6 +17,16 @@ import com.example.android.i_am_baker.R;
 public class Step_Adapter extends RecyclerView.Adapter<Step_Adapter.AdapterViewHolder> {
 
     public String[] mdata;
+    private final AdapterOnClickHandler mhandler;
+    public Step_Adapter(AdapterOnClickHandler mhandler){
+        this.mhandler =  mhandler;
+
+    }
+
+
+    public interface AdapterOnClickHandler {
+        void onClick(int position);
+    }
 
     @Override
     public Step_Adapter.AdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,13 +60,23 @@ public class Step_Adapter extends RecyclerView.Adapter<Step_Adapter.AdapterViewH
 
         notifyDataSetChanged();
     }
-    public class AdapterViewHolder extends RecyclerView.ViewHolder  {
+    public class AdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mtext;
 
 
         public AdapterViewHolder(View itemView) {
             super(itemView);
             mtext = (TextView) itemView.findViewById(R.id.steps);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+
+            mhandler.onClick(adapterPosition);
+
         }
     }
 

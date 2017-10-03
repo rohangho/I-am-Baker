@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".FragmentDisplayer"></activity>
+        <activity android:name=".IngredientStepActivity" />
+        <activity android:name=".DetailVideoActivity"></activity>
     </application>
 
 </manifest>

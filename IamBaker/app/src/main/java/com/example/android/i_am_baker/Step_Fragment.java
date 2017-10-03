@@ -1,5 +1,6 @@
 package com.example.android.i_am_baker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,7 @@ import com.example.android.i_am_baker.network.Json_Type;
  * Created by ROHAN on 03-10-2017.
  */
 
-public class Step_Fragment extends Fragment {
+public class Step_Fragment extends Fragment implements Step_Adapter.AdapterOnClickHandler {
 
     private RecyclerView mrecycle;
     private Step_Adapter mAdapter;
@@ -29,7 +30,7 @@ public class Step_Fragment extends Fragment {
         mrecycle=(RecyclerView)rootView.findViewById(R.id.ingredient);
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         mrecycle.setLayoutManager(layoutmanager);
-        mAdapter=new Step_Adapter();
+        mAdapter=new Step_Adapter(this);
         mrecycle.setLayoutManager(layoutmanager);
         mrecycle.setAdapter(mAdapter);
        // String position=this.getArguments().getString("pos").toString();
@@ -44,4 +45,12 @@ public class Step_Fragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(int position) {
+
+        Class destinationClass = DetailVideoActivity.class;
+        Intent intentToStartDetailActivity = new Intent(getActivity(), destinationClass);
+        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, Integer.toString(position));
+        startActivity(intentToStartDetailActivity);
+    }
 }

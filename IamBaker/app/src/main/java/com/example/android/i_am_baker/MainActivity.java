@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
     @Override
     public void onClick(int position) {
         Context context = this;
-        Class destinationClass = FragmentDisplayer.class;
+        Class destinationClass = IngredientStepActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
         intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, Integer.toString(position));
         startActivity(intentToStartDetailActivity);

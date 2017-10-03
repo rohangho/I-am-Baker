@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.i_am_baker.FragmentDisplayer">
+    tools:context="com.example.android.i_am_baker.IngredientStepActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/ingre"
         android:layout_marginBottom="8dp">
 
@@ -28,7 +28,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:id="@+id/ste"
         android:layout_marginBottom="8dp"/>
 </LinearLayout>

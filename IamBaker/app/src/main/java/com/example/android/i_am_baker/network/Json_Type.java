@@ -53,6 +53,8 @@ public class Json_Type {
     public static String[] measure;
     public static String[] ingredient;
     public static String[] steps;
+    public static String[] step_detail;
+    public static String[] step_video_url;
 
     public static URL buildurl() throws JSONException, MalformedURLException {
         String url ="https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
@@ -91,6 +93,8 @@ public class Json_Type {
         ingredient=new String[number.length()];
         full_Sentence=new String[number.length()];
         steps=new String[stepnumber.length()];
+        step_detail=new String[stepnumber.length()];
+        step_video_url=new String[stepnumber.length()];
         // Log.i("hiiiii",Integer.toString(number_Of_Ingridient));
         for(int j=0;j<number_Of_Ingridient;j++)
         {
@@ -107,6 +111,8 @@ public class Json_Type {
             JSONObject currentstep =  stepnumber.getJSONObject(k);
 
             steps[k]= currentstep.getString("shortDescription");
+            step_detail[k]= currentstep.getString("description");
+            step_video_url[k]=currentstep.getString("videoURL");
         }
        // Log.i("The full sentence is ",full_Sentence[1]);
         return full_Sentence;
@@ -116,6 +122,11 @@ public class Json_Type {
         public static String[] return_Step()
         {
             return steps;
+        }
+
+        public static String return_detail(int pos)
+        {
+            return step_detail[pos];
         }
 
     }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-public class FragmentDisplayer extends AppCompatActivity {
+public class IngredientStepActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,7 @@ public class FragmentDisplayer extends AppCompatActivity {
         Intent intentThatStartedThisActivity = getIntent();
         Bundle bundle=new Bundle();
 
-        // COMPLETED (2) Display the weather forecast that was passed from MainActivity
+
         if (intentThatStartedThisActivity != null) {
             if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)) {
                 position = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
@@ -33,5 +33,11 @@ public class FragmentDisplayer extends AppCompatActivity {
         FragmentManager fragmentManager1=getSupportFragmentManager();
         fragmentManager1.beginTransaction().add(R.id.ste,stfragment).commit();
 
+
+
+
     }
+
+
+
 }
