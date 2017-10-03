@@ -1,6 +1,8 @@
 package com.example.android.i_am_baker;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,39 +19,49 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements BasicAdapter.AdapterOnClickHandler {
 
     private RecyclerView mrecycle;
     private BasicAdapter madapter;
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mrecycle=(RecyclerView)findViewById(R.id.types);
+        mrecycle = (RecyclerView) findViewById(R.id.types);
         //To check weathet it is tab mod or phone mod
-        if(getResources().getBoolean(R.bool.is_Tab)){
-            GridLayoutManager layoutmanager=new GridLayoutManager(this,4);
+        if (getResources().getBoolean(R.bool.is_Tab)) {
+            GridLayoutManager layoutmanager = new GridLayoutManager(this, 4);
             mrecycle.setLayoutManager(layoutmanager);
-            madapter=new BasicAdapter();
+            madapter = new BasicAdapter(this);
 
             mrecycle.setLayoutManager(layoutmanager);
             mrecycle.setAdapter(madapter);
 
-        }
-        else {
+        } else {
             LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
             mrecycle.setLayoutManager(layoutmanager);
-            madapter = new BasicAdapter();
+            madapter = new BasicAdapter(this);
 
             mrecycle.setLayoutManager(layoutmanager);
             mrecycle.setAdapter(madapter);
         }
         FetchTask fb = new FetchTask();
         fb.execute();
+
+    }
+
+
+
+    @Override
+    public void onClick(int position) {
+        Context context = this;
+        Class destinationClass = FragmentDisplayer.class;
+        Intent intentToStartDetailActivity = new Intent(context, destinationClass);
+        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, Integer.toString(position));
+        startActivity(intentToStartDetailActivity);
+
     }
 
 

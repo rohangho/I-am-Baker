@@ -45,7 +45,15 @@ public class Json_Type {
 
 
     public static int noofid;
+    public static int number_Of_Ingridient;
+    public static String[] full_Sentence;
     public static String[] type;
+    public static String[] quantity;
+    public static String Url_copy;
+    public static String[] measure;
+    public static String[] ingredient;
+    public static String[] steps;
+
     public static URL buildurl() throws JSONException, MalformedURLException {
         String url ="https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
         Uri builtUri = Uri.parse(url).buildUpon().build();
@@ -55,7 +63,7 @@ public class Json_Type {
         return url1;
     }
     public static String[] name(Context context, String url) throws JSONException {
-
+        Url_copy=url;
         JSONArray forJson = new JSONArray(url);
 
         noofid=forJson.length();
@@ -67,9 +75,48 @@ public class Json_Type {
 
 
 
+
         }
         return type;
     }
+
+    public static String[] return_Ingredient (String position) throws JSONException {
+        JSONArray forJsonfunction = new JSONArray(Url_copy);
+        JSONObject current = forJsonfunction.getJSONObject(Integer.parseInt(position));
+        JSONArray number = current.getJSONArray("ingredients");
+        JSONArray stepnumber = current.getJSONArray("steps");
+        number_Of_Ingridient = number.length();
+        quantity=new String[number.length()];
+        measure=new String[number.length()];
+        ingredient=new String[number.length()];
+        full_Sentence=new String[number.length()];
+        steps=new String[stepnumber.length()];
+        // Log.i("hiiiii",Integer.toString(number_Of_Ingridient));
+        for(int j=0;j<number_Of_Ingridient;j++)
+        {
+            JSONObject currentIngredient = number.getJSONObject(j);
+            quantity[j] = currentIngredient.getString("quantity");
+            measure[j] = currentIngredient.getString("measure");
+            ingredient[j] = currentIngredient.getString("ingredient");
+            full_Sentence[j]= quantity[j]+" "+measure[j]+" "+"of"+" "+ingredient[j];
+
+
+        }
+        for(int k=0;k<stepnumber.length();k++)
+        {
+            JSONObject currentstep =  stepnumber.getJSONObject(k);
+
+            steps[k]= currentstep.getString("shortDescription");
+        }
+       // Log.i("The full sentence is ",full_Sentence[1]);
+        return full_Sentence;
+
+    }
+
+        public static String[] return_Step()
+        {
+            return steps;
+        }
 
     }
 

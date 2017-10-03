@@ -18,7 +18,21 @@ import com.example.android.i_am_baker.R;
 public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.AdapterViewHolder> {
 
     private String[] mdata;
+    private final AdapterOnClickHandler mhandler;
     int i=0;
+
+    public BasicAdapter(AdapterOnClickHandler mhandler){
+        this.mhandler = mhandler;
+
+    }
+
+
+    public interface AdapterOnClickHandler {
+        void onClick(int position);
+    }
+
+
+
 
     @Override
     public BasicAdapter.AdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,6 +51,8 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.AdapterViewH
        Log.i("hiiii",mdata[1]);
         notifyDataSetChanged();
     }
+
+
 
     @Override
     public void onBindViewHolder(BasicAdapter.AdapterViewHolder holder, int position) {
@@ -62,7 +78,7 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.AdapterViewH
         return mdata.length;
     }
 
-    public class AdapterViewHolder extends RecyclerView.ViewHolder {
+    public class AdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mtext;
         private ImageView ming;
 
@@ -70,8 +86,17 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.AdapterViewH
             super(itemView);
             mtext = (TextView) itemView.findViewById(R.id.name_of_cake);
             ming = (ImageView) itemView.findViewById(R.id.imageView);
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View v) {
+
+                int adapterPosition = getAdapterPosition();
+
+                mhandler.onClick(adapterPosition);
+
+        }
     }
 }
