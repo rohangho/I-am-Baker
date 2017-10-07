@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.android.i_am_baker.widget.CustomDataType;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -48,6 +51,8 @@ public class Json_Type {
     public static int noofid;
     public static int number_Of_Ingridient;
     public static String[] full_Sentence;
+    public static String[] ingredient_for_widget;
+   public static ArrayList<CustomDataType> array=new ArrayList<>();
     public static String[] type;
     public static String[] quantity;
     public static String Url_copy;
@@ -75,6 +80,17 @@ public class Json_Type {
         for (int i=0;i<noofid;i++) {
             JSONObject current = forJson.getJSONObject(i);
             type[i] = current.getString("name");
+            array.add(new CustomDataType(type[i].toUpperCase()));
+            //Log.i("hiii",array.get(0).getresname());
+            JSONArray number = current.getJSONArray("ingredients");
+            for (int m=0;m<number.length();m++)
+            {
+                JSONObject c1=number.getJSONObject(m);
+                array.add(new CustomDataType(c1.getString("ingredient")));
+            }
+            array.add(new CustomDataType(" "));
+            array.add(new CustomDataType(" "));
+
 
 
 
@@ -94,6 +110,7 @@ public class Json_Type {
         ingredient=new String[number.length()];
         full_Sentence=new String[number.length()];
         steps=new String[stepnumber.length()];
+
         step_detail=new String[stepnumber.length()];
         step_video_url=new String[stepnumber.length()];
         // Log.i("hiiiii",Integer.toString(number_Of_Ingridient));
@@ -103,10 +120,13 @@ public class Json_Type {
             quantity[j] = currentIngredient.getString("quantity");
             measure[j] = currentIngredient.getString("measure");
             ingredient[j] = currentIngredient.getString("ingredient");
+
+
             full_Sentence[j]= quantity[j]+" "+measure[j]+" "+"of"+" "+ingredient[j];
 
 
         }
+
         for(int k=0;k<stepnumber.length();k++)
         {
             JSONObject currentstep =  stepnumber.getJSONObject(k);
@@ -138,6 +158,21 @@ public class Json_Type {
             return step_video_url[pos];
 
         }
+
+        public static String[] return_widget()
+        {
+            ingredient_for_widget=new String[array.size()];
+            for(int i=0;i<array.size();i++)
+            {
+                ingredient_for_widget[i]=array.get(i).getresname();
+
+            }
+
+                return ingredient_for_widget;
+        }
+
+
+
     }
 
 

@@ -57,7 +57,7 @@ public class VideoFragment extends Fragment {
             exoPlayerView.setPlayer(exoPlayer);
             exoPlayer.prepare(videoSource);
             exoPlayer.setPlayWhenReady(true);
-            
+
 
         }catch (Exception e){
             Toast.makeText(getActivity(),"Something wrong",Toast.LENGTH_LONG).show();

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
         mrecycle = (RecyclerView) findViewById(R.id.types);
         //To check weathet it is tab mod or phone mod
         if (getResources().getBoolean(R.bool.is_Tab)) {
+
             GridLayoutManager layoutmanager = new GridLayoutManager(this, 4);
             mrecycle.setLayoutManager(layoutmanager);
             madapter = new BasicAdapter(this);
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
             mrecycle.setAdapter(madapter);
 
         } else {
+
             LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
             mrecycle.setLayoutManager(layoutmanager);
             madapter = new BasicAdapter(this);

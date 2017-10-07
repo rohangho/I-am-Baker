@@ -16,7 +16,7 @@ import com.example.android.i_am_baker.R;
 
 public class Ingredient_Adapter extends RecyclerView.Adapter<Ingredient_Adapter.AdapterViewHolder> {
 
-    private String[] mdata;
+    private  String[] mdata;
 
     @Override
     public Ingredient_Adapter.AdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
