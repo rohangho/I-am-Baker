@@ -35,8 +35,8 @@ public class Step_Fragment extends Fragment  {
 
 
 
-        View rootView = inflater.inflate(R.layout.step_and_ingredient, container, false);
-        mrecycle=(RecyclerView)rootView.findViewById(R.id.ingredient);
+        View rootView = inflater.inflate(R.layout.onlystep, container, false);
+        mrecycle=(RecyclerView)rootView.findViewById(R.id.onlystep);
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         mrecycle.setLayoutManager(layoutmanager);
         mAdapter=new Step_Adapter(listener);

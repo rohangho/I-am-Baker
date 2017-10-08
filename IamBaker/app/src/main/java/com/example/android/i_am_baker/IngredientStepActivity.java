@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.android.i_am_baker.Adapter.Step_Adapter;
 
@@ -67,8 +68,11 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
 
         if ((getResources().getBoolean(R.bool.is_Tab))) {
 
+
             Bundle bundle1=new Bundle();
             bundle1.putString("pos", Integer.toString(position));
+
+            Log.i("hiiiiiiiiiiiiiiiiiii",Integer.toString(position));
 
             DetailFragment ifragment4=new DetailFragment();
             ifragment4.setArguments(bundle1);
