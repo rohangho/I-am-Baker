@@ -30,7 +30,13 @@ public class MainActivityTest {
         onView(withId(R.id.types))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
         onView(withId(R.id.ingredient)).check(matches(isDisplayed()));
+
+
+
+
     }
+
+
 
 
 

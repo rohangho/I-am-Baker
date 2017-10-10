@@ -2,6 +2,7 @@ package com.example.android.i_am_baker.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -29,13 +30,20 @@ public class MyWidgetRemoteViewsService extends RemoteViewsService {
             this.context = context;
 
             mydata = new ArrayList<>();
-            for (int i=0;i<obj.return_widget().length;i++)
+           mydata.add(new CustomDataType("Brownies"));
+            mydata.add(new CustomDataType("Yellow Cake"));
+            mydata.add(new CustomDataType("Nutrella"));
+            mydata.add(new CustomDataType("Cheese cake"));
+
+          //  Log.e("hiii",obj.return_type()[0]);
+           //  for (int i=0;i<obj.return_type().length;i++)
             //    Log.i("hiii", (String) obj.return_widget().get(i));
-           mydata.add(new CustomDataType(obj.return_widget()[i]));
+           //mydata.add(new CustomDataType(obj.return_type()[i]));
            // mydata.add(new CustomDataType("hi"));
 
 
         }
+
 
         @Override
         public void onCreate() {
@@ -64,6 +72,16 @@ public class MyWidgetRemoteViewsService extends RemoteViewsService {
         public RemoteViews getViewAt(int position) {
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_list);
             rv.setTextViewText(R.id.widgetItemTaskNameLabel, mydata.get(position).getresname());
+
+            Bundle extras = new Bundle();
+            extras.putString("pos", Integer.toString(position));
+            Intent fillInIntent = new Intent();
+            fillInIntent.putExtra(Intent.EXTRA_TEXT, Integer.toString(position));
+            fillInIntent.putExtras(extras);
+            // Make it possible to distinguish the individual on-click
+            // action of a given item
+            rv.setOnClickFillInIntent(R.id.widgetItemTaskNameLabel, fillInIntent);
+
             return rv;
         }
 

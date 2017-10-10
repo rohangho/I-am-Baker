@@ -22,6 +22,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 /**
  * Created by ROHAN on 04-10-2017.
@@ -69,6 +70,12 @@ public class VideoFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(exoPlayer!=null && Util.SDK_INT<=23)
+            //exoPlayer.stop();
 
-
+            exoPlayer.setPlayWhenReady(false);
+    }
 }

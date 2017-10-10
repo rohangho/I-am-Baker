@@ -133,7 +133,12 @@ public class Json_Type {
 
             steps[k]= currentstep.getString("shortDescription");
             step_detail[k]= currentstep.getString("description");
-            step_video_url[k]=currentstep.getString("videoURL");
+
+            if(currentstep.getString("videoURL").equals(""))
+                step_video_url[k]=currentstep.getString("thumbnailURL");
+            else
+                step_video_url[k]=currentstep.getString("videoURL");
+
         }
        // Log.i("The full sentence is ",full_Sentence[1]);
         return full_Sentence;
@@ -170,6 +175,8 @@ public class Json_Type {
 
                 return ingredient_for_widget;
         }
+
+
 
 
 

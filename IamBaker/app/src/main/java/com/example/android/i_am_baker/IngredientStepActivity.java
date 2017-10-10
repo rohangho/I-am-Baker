@@ -11,6 +11,7 @@ import com.example.android.i_am_baker.Adapter.Step_Adapter;
 public class IngredientStepActivity extends AppCompatActivity implements Step_Adapter.AdapterOnClickHandler {
 
     public static boolean m2plane;
+    //public static String position_to_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
         if (intentThatStartedThisActivity != null) {
             if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)) {
                 position = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
+               // position_to_save=position;
                 bundle.putString("pos",position);
                 //Log.i("i am position",position);
             }}
