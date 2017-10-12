@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
-import com.example.android.i_am_baker.IngredientStepActivity;
+import com.example.android.i_am_baker.MainActivity;
 import com.example.android.i_am_baker.R;
 
 /**
@@ -44,7 +44,7 @@ public class new_app_widget extends AppWidgetProvider {
             rv.setRemoteAdapter( R.id.widgetListView, intent);
 
 
-            Intent toastIntent = new Intent(context, IngredientStepActivity.class);
+            Intent toastIntent = new Intent(context, MainActivity.class);
             //toastIntent.putExtra(Intent.EXTRA_TEXT, Integer.toString(position));
 
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));

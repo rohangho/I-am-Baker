@@ -1,17 +1,28 @@
 package com.example.android.i_am_baker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.android.i_am_baker.Adapter.Step_Adapter;
+import com.example.android.i_am_baker.network.Json_Type;
+import com.example.android.i_am_baker.widget.CustomDataType;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class IngredientStepActivity extends AppCompatActivity implements Step_Adapter.AdapterOnClickHandler {
+    public static final String SHARED_PREFS_KEY = "SHARED_PREFS_KEY";
 
     public static boolean m2plane;
     //public static String position_to_save;
+    public static int position_clicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,10 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
 
     @Override
     public void onClick(int position) {
+        position_clicked=position;
+       // SharedPreferences sharedpref=getSharedPreferences("clicking pos", Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedpref.edit();
+        makeData(Integer.toString(position));
 
         if ((getResources().getBoolean(R.bool.is_Tab))) {
 
@@ -93,6 +108,68 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
             intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, Integer.toString(position));
             startActivity(intentToStartDetailActivity);
         }
+    }
+    Json_Type obj=new Json_Type();
+    private void makeData(String buttonName) {
+        ArrayList<CustomDataType> widgetObjects = new ArrayList<>();
+       if(Integer.parseInt(buttonName)==0)
+       {
+           try {
+               int a=obj.return_Ingredient(buttonName).length;
+               for(int i=0;i<a;i++)
+               {
+                   widgetObjects.add(new CustomDataType(obj.return_Ingredient(buttonName)[i]));
+               }
+           } catch (JSONException e) {
+               e.printStackTrace();
+           }
+       }
+        else if(Integer.parseInt(buttonName)==1)
+        {
+            try {
+                int a=obj.return_Ingredient(buttonName).length;
+                for(int i=0;i<a;i++)
+                {
+                    widgetObjects.add(new CustomDataType(obj.return_Ingredient(buttonName)[i]));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(Integer.parseInt(buttonName)==2)
+        {
+            try {
+                int a=obj.return_Ingredient(buttonName).length;
+                for(int i=0;i<a;i++)
+                {
+                    widgetObjects.add(new CustomDataType(obj.return_Ingredient(buttonName)[i]));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(Integer.parseInt(buttonName)==3)
+        {
+            try {
+                int a=obj.return_Ingredient(buttonName).length;
+                for(int i=0;i<a;i++)
+                {
+                    widgetObjects.add(new CustomDataType(obj.return_Ingredient(buttonName)[i]));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        // widgetObjects.add(new CustomDataType("Hello"));
+        //widgetObjects.add(new CustomDataType("this"));
+        //widgetObjects.add(new CustomDataType("position"));
+        //widgetObjects.add(new CustomDataType(buttonName));
+        Gson gson = new Gson();
+        String json = gson.toJson(widgetObjects);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(SHARED_PREFS_KEY, json).commit();
     }
 }
 

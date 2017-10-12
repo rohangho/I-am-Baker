@@ -2,11 +2,12 @@ package com.example.android.i_am_baker;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.example.android.i_am_baker.network.Json_Type;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -22,7 +23,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by ROHAN on 04-10-2017.
@@ -36,46 +37,82 @@ public class VideoFragment extends Fragment {
 
     SimpleExoPlayerView exoPlayerView;
     SimpleExoPlayer exoPlayer;
+    ImageView img;
+    Uri videoUri;
+    String position;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.video_fragment, container, false);
 
-        exoPlayerView=(SimpleExoPlayerView)rootView.findViewById(R.id.exoplayer_view);
+        exoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.exoplayer_view);
 
-        String position=this.getArguments().getString("pos").toString();
-        Json_Type obj=new Json_Type();
-        try {
-            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-            TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
-            exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
-
-        Uri videoUri=Uri.parse(obj.return_video(Integer.parseInt(position)));
-            DefaultHttpDataSourceFactory dataSource = new DefaultHttpDataSourceFactory("exoplayer");
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSource, extractorsFactory, null, null);
-
-            exoPlayerView.setPlayer(exoPlayer);
-            exoPlayer.prepare(videoSource);
-            exoPlayer.setPlayWhenReady(true);
+         position = this.getArguments().getString("pos").toString();
 
 
-        }catch (Exception e){
-            Toast.makeText(getActivity(),"Something wrong",Toast.LENGTH_LONG).show();
-        }
+        img = (ImageView) rootView.findViewById(R.id.img);
+        Picasso.with(getContext()).load("obj.return_video(Integer.parseInt(position))").into(img);
 
 
-
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+        exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
         return rootView;
-
     }
+    Json_Type obj = new Json_Type();
+
+    public void set_video() {
+               videoUri = Uri.parse(obj.return_video(Integer.parseInt(position)));
+               DefaultHttpDataSourceFactory dataSource = new DefaultHttpDataSourceFactory("exoplayer");
+               ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+               MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSource, extractorsFactory, null, null);
+
+               exoPlayerView.setPlayer(exoPlayer);
+               exoPlayer.prepare(videoSource);
+               exoPlayer.setPlayWhenReady(true);
+           }
+
+
+
+
+
+
+
+
+    long position1;
 
     @Override
     public void onPause() {
         super.onPause();
-        if(exoPlayer!=null && Util.SDK_INT<=23)
-            //exoPlayer.stop();
-
-            exoPlayer.setPlayWhenReady(false);
+        if (exoPlayer!=null) {
+            position1 = exoPlayer.getCurrentPosition();
+            exoPlayer.stop();
+            exoPlayer.release();
+        }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (exoPlayer != null);
+        set_video();
+
+    }
+    @Override
+    public void onSaveInstanceState(Bundle currentState) {
+        super.onSaveInstanceState(currentState);
+
+        currentState.putLong("position_of_player",position1);
+
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState!=null) {
+            position1 = savedInstanceState.getLong("position_of_player");
+        }
+    }
+
+
 }
