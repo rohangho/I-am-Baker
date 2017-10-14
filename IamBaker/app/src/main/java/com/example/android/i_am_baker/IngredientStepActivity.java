@@ -1,5 +1,8 @@
 package com.example.android.i_am_baker;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.util.Log;
 import com.example.android.i_am_baker.Adapter.Step_Adapter;
 import com.example.android.i_am_baker.network.Json_Type;
 import com.example.android.i_am_baker.widget.CustomDataType;
+import com.example.android.i_am_baker.widget.new_app_widget;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -119,10 +123,13 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
                for(int i=0;i<a;i++)
                {
                    widgetObjects.add(new CustomDataType(obj.return_Ingredient(buttonName)[i]));
+
                }
            } catch (JSONException e) {
                e.printStackTrace();
            }
+
+           sendBroadcast();
        }
         else if(Integer.parseInt(buttonName)==1)
         {
@@ -135,6 +142,7 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            sendBroadcast();
         }
         else if(Integer.parseInt(buttonName)==2)
         {
@@ -147,6 +155,7 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            sendBroadcast();
         }
         else if(Integer.parseInt(buttonName)==3)
         {
@@ -159,6 +168,8 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            sendBroadcast();
+
         }
         // widgetObjects.add(new CustomDataType("Hello"));
         //widgetObjects.add(new CustomDataType("this"));
@@ -171,6 +182,18 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(SHARED_PREFS_KEY, json).commit();
     }
+
+    private void sendBroadcast() {
+
+        Context context=getApplicationContext();
+        Intent intent = new Intent(this, new_app_widget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE\"");
+        ComponentName name=new ComponentName(context,new_app_widget.class);
+        int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
+    }
+
 }
 
 

@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 
 public class DetailVideoActivity extends AppCompatActivity {
 
+    public VideoFragment ifragment1;
+    FragmentManager fragmentManager1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +32,30 @@ public class DetailVideoActivity extends AppCompatActivity {
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.detail_of_step,ifragment).commit();
 
-        VideoFragment ifragment1=new VideoFragment();
-        ifragment1.setArguments(bundle);
-        FragmentManager fragmentManager1=getSupportFragmentManager();
-        fragmentManager1.beginTransaction().add(R.id.Corresponding_video,ifragment1).commit();
+        if(savedInstanceState!=null)
+        {
+            ifragment1=(VideoFragment) getSupportFragmentManager().getFragment(savedInstanceState, "saved_fragment");
+
+
+        }
+        else {
+            ifragment1 = new VideoFragment();
+            ifragment1.setArguments(bundle);
+            fragmentManager1 = getSupportFragmentManager();
+            fragmentManager1.beginTransaction().add(R.id.Corresponding_video, ifragment1).commit();
+        }
+
+
 
 
 
 
     }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState){
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "saved_fragment", ifragment1);
+    }
+
 }

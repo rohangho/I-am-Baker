@@ -70,6 +70,7 @@ public class VideoFragment extends Fragment {
                exoPlayerView.setPlayer(exoPlayer);
                exoPlayer.prepare(videoSource);
                exoPlayer.setPlayWhenReady(true);
+
            }
 
 
@@ -88,6 +89,7 @@ public class VideoFragment extends Fragment {
             position1 = exoPlayer.getCurrentPosition();
             exoPlayer.stop();
             exoPlayer.release();
+
         }
     }
 
@@ -95,7 +97,9 @@ public class VideoFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (exoPlayer != null);
+        exoPlayer.seekTo(position1);
         set_video();
+
 
     }
     @Override
@@ -110,7 +114,8 @@ public class VideoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState!=null) {
-            position1 = savedInstanceState.getLong("position_of_player");
+           position1 = savedInstanceState.getLong("position_of_player");
+
         }
     }
 

@@ -1,7 +1,9 @@
 package com.example.android.i_am_baker;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -113,5 +115,21 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
         }
 
     }
+
+
+    public Activity getActivity() {
+        Context context = this;
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+
+        }
+
+        return this;
+
+    }
+
 
 }
