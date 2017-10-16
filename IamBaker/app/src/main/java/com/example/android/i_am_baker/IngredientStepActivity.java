@@ -51,6 +51,13 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
         if (intentThatStartedThisActivity != null) {
             if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)) {
                 position = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
+
+
+
+                makeData(position);
+
+
+
                 // position_to_save=position;
                 bundle.putString("pos", position);
                 //Log.i("i am position",position);
@@ -87,7 +94,7 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
         position_clicked=position;
        // SharedPreferences sharedpref=getSharedPreferences("clicking pos", Context.MODE_PRIVATE);
         //SharedPreferences.Editor editor = sharedpref.edit();
-        makeData(Integer.toString(position));
+
 
         if ((getResources().getBoolean(R.bool.is_Tab))) {
 
