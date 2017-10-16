@@ -17,6 +17,9 @@ import com.example.android.i_am_baker.R;
 public class Ingredient_Adapter extends RecyclerView.Adapter<Ingredient_Adapter.AdapterViewHolder> {
 
     private  String[] mdata;
+    public interface AdapterOnClickHandler_for_ingredient {
+        void onClick(int position);
+    }
 
     @Override
     public Ingredient_Adapter.AdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

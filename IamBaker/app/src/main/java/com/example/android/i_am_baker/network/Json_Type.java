@@ -61,6 +61,7 @@ public class Json_Type {
     public static String[] steps;
     public static String[] step_detail;
     public static String[] step_video_url;
+    public static String[] image;
 
     public static URL buildurl() throws JSONException, MalformedURLException {
         String url ="https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
@@ -75,7 +76,7 @@ public class Json_Type {
         JSONArray forJson = new JSONArray(url);
 
         noofid=forJson.length();
-
+        image=new String[forJson.length()];
         type=new String[forJson.length()];
         for (int i=0;i<noofid;i++) {
             JSONObject current = forJson.getJSONObject(i);
@@ -174,6 +175,11 @@ public class Json_Type {
             }
 
                 return ingredient_for_widget;
+        }
+
+        public static String[] return_image()
+        {
+            return image;
         }
 
 

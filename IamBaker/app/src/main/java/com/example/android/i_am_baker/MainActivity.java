@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
 
     private RecyclerView mrecycle;
     private BasicAdapter madapter;
+    //Context context=;
 
 
     @Override
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
 
             GridLayoutManager layoutmanager = new GridLayoutManager(this, 4);
             mrecycle.setLayoutManager(layoutmanager);
-            madapter = new BasicAdapter(this);
+            madapter = new BasicAdapter(this,this);
 
             mrecycle.setLayoutManager(layoutmanager);
             mrecycle.setAdapter(madapter);
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BasicAdapter.Adap
 
             LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
             mrecycle.setLayoutManager(layoutmanager);
-            madapter = new BasicAdapter(this);
+            madapter = new BasicAdapter(this,this);
 
             mrecycle.setLayoutManager(layoutmanager);
             mrecycle.setAdapter(madapter);

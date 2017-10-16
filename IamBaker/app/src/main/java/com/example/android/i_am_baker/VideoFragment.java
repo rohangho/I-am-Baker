@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.android.i_am_baker.network.Json_Type;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -23,7 +22,6 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by ROHAN on 04-10-2017.
@@ -37,7 +35,7 @@ public class VideoFragment extends Fragment {
 
     SimpleExoPlayerView exoPlayerView;
     SimpleExoPlayer exoPlayer;
-    ImageView img;
+
     Uri videoUri;
     String position;
 
@@ -50,8 +48,6 @@ public class VideoFragment extends Fragment {
          position = this.getArguments().getString("pos").toString();
 
 
-        img = (ImageView) rootView.findViewById(R.id.img);
-        Picasso.with(getContext()).load("obj.return_video(Integer.parseInt(position))").into(img);
 
 
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();

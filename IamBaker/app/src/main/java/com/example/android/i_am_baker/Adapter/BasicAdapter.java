@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.i_am_baker.R;
+import com.example.android.i_am_baker.network.Json_Type;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by ROHAN on 23-09-2017.
@@ -17,13 +19,19 @@ import com.example.android.i_am_baker.R;
 
 public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.AdapterViewHolder> {
 
+    Context mcontext;
+
+    Json_Type obj=new Json_Type();
+
+
+
     private String[] mdata;
     private final AdapterOnClickHandler mhandler;
     int i=0;
 
-    public BasicAdapter(AdapterOnClickHandler mhandler){
+    public BasicAdapter(AdapterOnClickHandler mhandler,Context context){
         this.mhandler = mhandler;
-
+        this.mcontext=context;
     }
 
 
@@ -59,14 +67,32 @@ public class BasicAdapter extends RecyclerView.Adapter<BasicAdapter.AdapterViewH
 
         String mov = mdata[position];
        // Log.i("hiiii",Integer.toString(position));
-        if(position==0)
-            holder.ming.setImageResource(R.drawable.nuetrella);
-        else if(position==1)
-            holder.ming.setImageResource(R.drawable.brownies);
-        else if(position==2)
+        if(position==0) {
+            if (obj.return_image()[position]==null)
+                holder.ming.setImageResource(R.drawable.nuetrella);
+            else
+                Picasso.with(mcontext).load(obj.return_image()[position]).into(holder.ming);
+        }
+        else if(position==1){
+            if(obj.return_image()[position]==null) {
+                holder.ming.setImageResource(R.drawable.brownies);
+                Log.i("hiiiiii", Integer.toString(position));
+            }
+            else
+                Picasso.with(mcontext).load(obj.return_image()[position]).into(holder.ming);
+        }
+        else if(position==2){
+            if(obj.return_image()[position]==null)
             holder.ming.setImageResource(R.drawable.yellow);
-        else
+            else
+                Picasso.with(mcontext).load(obj.return_image()[position]).into(holder.ming);
+        }
+        else{
+            if(obj.return_image()[position]==null)
             holder.ming.setImageResource(R.drawable.cheese);
+            else
+                Picasso.with(mcontext).load(obj.return_image()[position]).into(holder.ming);
+        }
         holder.mtext.setText(mov);
 
     }
