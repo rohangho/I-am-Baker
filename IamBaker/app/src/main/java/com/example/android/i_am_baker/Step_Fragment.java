@@ -47,11 +47,14 @@ public class Step_Fragment extends Fragment  {
         Json_Type obj=new Json_Type();
         // Log.i("The full sentence is",obj.return_Ingredient(position)[1]);
         mAdapter.setData(obj.return_Step());
+        setRetainInstance(true);
 
 
         return rootView;
 
     }
+
+
 
 
 

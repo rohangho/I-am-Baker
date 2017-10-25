@@ -4,9 +4,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.android.i_am_baker.network.Json_Type;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -22,6 +24,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by ROHAN on 04-10-2017.
@@ -35,9 +38,11 @@ public class VideoFragment extends Fragment {
 
     SimpleExoPlayerView exoPlayerView;
     SimpleExoPlayer exoPlayer;
+    ImageView img;
 
     Uri videoUri;
     String position;
+    Boolean bull;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -46,29 +51,49 @@ public class VideoFragment extends Fragment {
         exoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.exoplayer_view);
 
          position = this.getArguments().getString("pos").toString();
+        img = (ImageView) rootView.findViewById(R.id.image);
+        if( obj.return_video(Integer.parseInt(position))==null){
+            img.setImageResource(R.drawable.images);
+            bull=false;
+
+        }
 
 
 
 
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
+        else {
+
+
+            Picasso.with(getContext()).load(obj.return_video(Integer.parseInt(position))).into(img);
+
+            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
+            bull=true;
+        }
         return rootView;
     }
     Json_Type obj = new Json_Type();
 
     public void set_video() {
-               videoUri = Uri.parse(obj.return_video(Integer.parseInt(position)));
-               DefaultHttpDataSourceFactory dataSource = new DefaultHttpDataSourceFactory("exoplayer");
-               ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-               MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSource, extractorsFactory, null, null);
+        if (bull) {
+            videoUri = Uri.parse(obj.return_video(Integer.parseInt(position)));
+            DefaultHttpDataSourceFactory dataSource = new DefaultHttpDataSourceFactory("exoplayer");
+            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSource, extractorsFactory, null, null);
 
-               exoPlayerView.setPlayer(exoPlayer);
-               exoPlayer.prepare(videoSource);
-               exoPlayer.setPlayWhenReady(true);
+            exoPlayerView.setPlayer(exoPlayer);
+            exoPlayer.prepare(videoSource);
+            exoPlayer.setPlayWhenReady(true);
 
-           }
 
+        }
+        else {
+
+            exoPlayerView.setVisibility(View.GONE);
+            Log.e("I_AM_BULL",Boolean.toString(bull));
+        }
+    }
 
 
 
@@ -91,10 +116,13 @@ public class VideoFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
-        if (exoPlayer != null);
-        exoPlayer.seekTo(position1);
-        set_video();
+
+            super.onResume();
+
+            if (exoPlayer != null)
+                exoPlayer.seekTo(position1);
+
+            set_video();
 
 
     }
@@ -114,6 +142,9 @@ public class VideoFragment extends Fragment {
 
         }
     }
+
+
+
 
 
 }

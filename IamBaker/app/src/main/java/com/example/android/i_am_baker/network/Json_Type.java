@@ -2,7 +2,6 @@ package com.example.android.i_am_baker.network;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.example.android.i_am_baker.widget.CustomDataType;
 
@@ -159,9 +158,20 @@ public class Json_Type {
         public static String return_video(int pos)
 
         {
-            String i="i am rohan";
-            Log.i("i",step_video_url[pos]);
-            return step_video_url[pos];
+            /**String i="i am rohan";
+
+            //Log.e("Hi iamreturnof1position",step_video_url[1]);
+            if(step_video_url[pos].equals(""))
+            return null ;
+            else
+                return step_video_url[pos];**/
+            String videoURL=null;
+            if(!step_video_url[pos].equals(""))
+            {
+                videoURL=step_video_url[pos];
+
+            }
+            return videoURL;
 
         }
 
