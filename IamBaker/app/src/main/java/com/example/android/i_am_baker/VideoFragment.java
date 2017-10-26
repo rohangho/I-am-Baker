@@ -81,17 +81,22 @@ public class VideoFragment extends Fragment {
             DefaultHttpDataSourceFactory dataSource = new DefaultHttpDataSourceFactory("exoplayer");
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
             MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSource, extractorsFactory, null, null);
+            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector);
 
             exoPlayerView.setPlayer(exoPlayer);
+            exoPlayer.seekTo(position1);
             exoPlayer.prepare(videoSource);
             exoPlayer.setPlayWhenReady(true);
 
 
         }
+
         else {
 
             exoPlayerView.setVisibility(View.GONE);
-            Log.e("I_AM_BULL",Boolean.toString(bull));
+            Log.i("I_AM_BULL",Boolean.toString(bull));
         }
     }
 
@@ -119,7 +124,7 @@ public class VideoFragment extends Fragment {
 
             super.onResume();
 
-            if (exoPlayer != null)
+            if (videoUri != null)
                 exoPlayer.seekTo(position1);
 
             set_video();

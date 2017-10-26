@@ -107,12 +107,12 @@ public class IngredientStepActivity extends AppCompatActivity implements Step_Ad
             DetailFragment ifragment4=new DetailFragment();
             ifragment4.setArguments(bundle1);
             FragmentManager fragmentManager4=getSupportFragmentManager();
-            fragmentManager4.beginTransaction().add(R.id.detail_of_step,ifragment4).commit();
+            fragmentManager4.beginTransaction().replace(R.id.detail_of_step,ifragment4).commit();
 
             VideoFragment ifragment5=new VideoFragment();
             ifragment5.setArguments(bundle1);
             FragmentManager fragmentManager5=getSupportFragmentManager();
-            fragmentManager5.beginTransaction().add(R.id.Corresponding_video,ifragment5).commit();
+            fragmentManager5.beginTransaction().replace(R.id.Corresponding_video,ifragment5).commit();
 
         }
         else{
